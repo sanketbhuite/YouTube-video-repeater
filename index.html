@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repeat YouTube Video</title>
+    <style type="text/css">
+        *{
+            background-color: #caacdc;
+            font-family: sans-serif;
+            text-align: center;
+        }
+        input{
+            max-width: 350px;
+            width: 100%;
+            height: 35px;
+            margin: 10px;
+            border: 2px solid black;
+            border-radius: 50px;
+        }
+        button{
+            max-width: 150px;
+            width: 100%;
+            height: 50px;
+            border: 2px solid black;
+            border-radius: 10px;
+            margin: 10px;
+            background-color: #64b264;
+        }
+    </style>
+</head>
+<body>
+    <h1>YouTube Video Repeater</h1>
+    
+    <label for="inputUrl">Enter YouTube URL:<br></label>
+    <input type="text" id="inputUrl" placeholder="Enter YouTube URL"><br><br>
+    
+    <label for="inputNumber">Enter Number of times:<br></label>
+    <input type="number" id="inputNumber" placeholder="Enter number here"><br><br>
+
+    <button onclick="repeatVideo()">Repeat Video</button>
+
+    <h3>Output:</h3>
+    <div id="output"></div>
+
+    <script>
+        function repeatVideo() {
+            const url = document.getElementById('inputUrl').value;
+            const number = parseInt(document.getElementById('inputNumber').value);
+            let result = '';
+
+            let videoIdMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtu.be\/)([a-zA-Z0-9_-]{11})/);
+            const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+            if (videoId && number > 0) {
+                for (let i = 0; i < number; i++) {
+                    result += <iframe width="280" height="158" 
+                                src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" 
+                                title="YouTube video player" frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen></iframe><br>;
+                }
+            } else {
+                result = 'Please enter a valid YouTube URL and a number greater than 0.';
+            }
+
+            document.getElementById('output').innerHTML = result;
+        }
+    </script>
+</body>
+</html>
