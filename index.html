@@ -49,16 +49,17 @@
             const number = parseInt(document.getElementById('inputNumber').value);
             let result = '';
 
+            // Handle both standard YouTube links and embed links
             let videoIdMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtu.be\/)([a-zA-Z0-9_-]{11})/);
             const videoId = videoIdMatch ? videoIdMatch[1] : null;
 
             if (videoId && number > 0) {
                 for (let i = 0; i < number; i++) {
-                    result += <iframe width="280" height="158" 
+                    result += `<iframe width="280" height="158" 
                                 src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" 
                                 title="YouTube video player" frameborder="0" 
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                allowfullscreen></iframe><br>;
+                                allowfullscreen></iframe><br>`;
                 }
             } else {
                 result = 'Please enter a valid YouTube URL and a number greater than 0.';
